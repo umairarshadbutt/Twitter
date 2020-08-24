@@ -1,14 +1,16 @@
 <div class="column is-half">
-    <article class="media box">
-        <figure class="media-left">
-            <p class= "image is-64x64">
-                <img src="https://bulma.io/images/placeholders/64x64.png">
-            </p>
-        </figure>
-        <div class="media-content">
-            <%= render 'tweets/form'%>
-        </div>
-    </article>
+    <% if user_signed_in? %>
+        <article class="media box">
+            <figure class="media-left">
+                <p class= "image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/64x64.png">
+                </p>
+            </figure>
+            <div class="media-content">
+                <%= render 'tweets/form'%>
+            </div>
+        </article>
+    <% end %>
 
 
 
@@ -28,20 +30,21 @@
                     <small><%= tweet.user.username %></small><br>
                     <p><%= tweet.tweet %></p>
                 </div>
-
-                <nav class="level">
-                    <div class="level-left is-mobile">
-                        <%= link_to tweet, class: "level-item" do%>
-                            <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
-                        <% end %>
-                        <%= link_to edit_tweet_path(tweet), class: "level-item" do%>
-                            <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                        <% end %>
-                        <%= link_to tweet, method: :delete, data:{confirm: "Are you sure to delete tweet?"} do%>
-                            <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                        <% end %>
-                    </div>
-                </nav>
+                <% if user_signed_in? %>
+                    <nav class="level">
+                        <div class="level-left is-mobile">
+                            <%= link_to tweet, class: "level-item" do%>
+                                <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+                            <% end %>
+                            <%= link_to edit_tweet_path(tweet), class: "level-item" do%>
+                                <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                            <% end %>
+                            <%= link_to tweet, method: :delete, data:{confirm: "Are you sure to delete tweet?"} do%>
+                                <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                            <% end %>
+                        </div>
+                    </nav>
+                <% end %>
             </div>
         </article>
     </div>
